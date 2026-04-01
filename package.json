@@ -3,14 +3,16 @@
   "module": "src/index.ts",
   "type": "module",
   "dependencies": {
-    "elysia": "latest",
+    "bcrypt": "^6.0.0",
     "drizzle-orm": "latest",
+    "elysia": "latest",
     "mysql2": "latest"
   },
   "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/node": "latest",
     "bun-types": "latest",
-    "drizzle-kit": "latest",
-    "@types/node": "latest"
+    "drizzle-kit": "latest"
   },
   "scripts": {
     "dev": "bun --watch src/index.ts"
