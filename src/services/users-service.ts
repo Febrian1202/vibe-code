@@ -1,7 +1,8 @@
 import bcrypt from 'bcrypt';
 import { db } from '../db';
-import { users } from '../db/schema';
+import { users, session } from '../db/schema';
 import { eq } from 'drizzle-orm';
+import { randomUUID } from 'node:crypto';
 
 export class UsersService {
   /**
@@ -34,6 +35,46 @@ export class UsersService {
     });
 
     return { data: 'OK' };
+  }
+
+  /**
+   * Login user
+   * @param payload Login data (email, password)
+   */
+  async loginUser(payload: any) {
+    const { email, password } = payload;
+
+    // 1. Find user by email
+    const [user] = await db
+      .select()
+      .from(users)
+      .where(eq(users.email, email))
+      .limit(1);
+
+    if (!user) {
+      throw new Error('Email atau password salah');
+    }
+
+    // 2. Verify password
+    const isValidPassword = await bcrypt.compare(password, user.password);
+
+    if (!isValidPassword) {
+      throw new Error('Email atau password salah');
+    }
+
+    // 3. Generate token
+    const token = randomUUID();
+    const expiresAt = new Date();
+    expiresAt.setDate(expiresAt.getDate() + 30); // 30 days from now
+
+    // 4. Save session
+    await db.insert(session).values({
+      token,
+      userId: user.id,
+      expiresAt: expiresAt,
+    });
+
+    return { data: token };
   }
 }
 
