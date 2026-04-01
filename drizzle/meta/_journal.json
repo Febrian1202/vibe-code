@@ -15,6 +15,27 @@
       "when": 1775058438226,
       "tag": "0001_talented_rattler",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1775074363677,
+      "tag": "0002_brown_inertia",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1775074762776,
+      "tag": "0003_grey_franklin_storm",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1775075323399,
+      "tag": "0004_flaky_glorian",
+      "breakpoints": true
     }
   ]
 }
