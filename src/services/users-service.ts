@@ -100,6 +100,20 @@ export class UsersService {
 
     return result;
   }
+
+  /**
+   * Logout user by deleting their session
+   * @param token Session token
+   */
+  async logoutUser(token: string) {
+    const [result] = await db.delete(session).where(eq(session.token, token));
+
+    if (result.affectedRows === 0) {
+      throw new Error('Unauthorized');
+    }
+
+    return { data: 'OK' };
+  }
 }
 
 export const usersService = new UsersService();
